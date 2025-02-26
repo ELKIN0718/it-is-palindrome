@@ -9,7 +9,7 @@ function agregarTexto(texto, elemento){
 
 function verificar(){
     let palabra = document.querySelector('#entrada').value;
-    let validacion = /[\d\W]/.test(palabra);
+    let validacion = /[\d\p{P}]/u.test(palabra);
     let derecho = [];
     let contra = [];
     let error = 0;
@@ -18,10 +18,11 @@ function verificar(){
         agregarTexto('Esto no es una palabra, no debe contener numeros, ni simbolos o espacios.', '#salida');
         
     }else{
+        //elimina espacios para poder tener frases
+        palabra = palabra.replace(/\s+/g, "");
         derecho = palabra.split('');
         contra = derecho;
         contador = contra.length - 1;
-        console.log(contra);
         for (let index =  0; index < derecho.length ; index++) {
             if(derecho[index] != contra[contador]){
                 error = error + 1;
